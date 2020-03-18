@@ -10,8 +10,18 @@ public class User {
     private String email;
 
     private String createtime;
+    
 
-    public Integer getId() {
+    public User(Integer id, String loginacct, String userpswd, String email, String createtime) {
+		super();
+		this.id = id;
+		this.loginacct = loginacct;
+		this.userpswd = userpswd;
+		this.email = email;
+		this.createtime = createtime;
+	}
+
+	public Integer getId() {
         return id;
     }
 

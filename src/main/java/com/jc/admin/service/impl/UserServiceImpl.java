@@ -1,5 +1,7 @@
 package com.jc.admin.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +19,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User queryUserLogin(String loginacct, String userpswd) {
-		System.out.println("service");
 		User user = usermapper.queryUserlogin(loginacct,userpswd);
 		if (user == null) {
 			System.out.println("查询失败");
@@ -27,4 +28,9 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	@Override
+	public List<User> queryALL() {
+		List<User> users=usermapper.selectByExample(null);
+		return users;
+	}
 }
