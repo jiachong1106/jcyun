@@ -213,4 +213,15 @@
       createtime = #{createtime,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+	<select id="querAllRole" resultType="com.jc.admin.bean.Role">
+		select id,name from t_role ;
+	</select>
+	<select id="queryRoleByUserid" parameterType="int" resultType="int">
+		select roleid from t_user_role where userid=#{id}
+	</select>
+	<!--增删改没有返回值  -->
+	<delete id="deleteUserRoleByUserId" >
+		delete from t_user_role where userid=#{id}
+	</delete>
+	
 </mapper>

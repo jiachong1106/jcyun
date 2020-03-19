@@ -2,6 +2,7 @@ package com.jc.admin.service;
 
 import java.util.List;
 
+import com.jc.admin.bean.Role;
 import com.jc.admin.bean.User;
 
 public interface UserService {
@@ -54,5 +55,21 @@ public interface UserService {
 	 * @return
 	 */
 	public void deleteBatchUser(List<Integer> list);
-
+	/**
+	 * 查询所有用户角色
+	 * @return
+	 */
+	public List<Role> querAllRole();
+	/**
+	 * 根据用户id，查询用户拥有的角色
+	 * @param id
+	 * @return
+	 */
+	public List<Integer> queryRoleByUserid(Integer id);
+	
+	/**
+	 * 修改用户角色
+	 * @param ids
+	 */
+	public void updateUserRole(Integer[] ids, Integer userId);
 }

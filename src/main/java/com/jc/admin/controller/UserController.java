@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,10 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
+import com.jc.admin.bean.Role;
 import com.jc.admin.bean.User;
 import com.jc.admin.service.UserService;
 import com.jc.utils.Msg;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 @Controller
 @RequestMapping("/user")
@@ -139,7 +138,40 @@ public class UserController {
 		    Integer del_id=Integer.parseInt(id);
 		    userService.deleteUser(del_id);
 		}*/
+			return Msg.success();
+	   }
+	//跳转到分配角色页面并回显数据.
+	@RequestMapping("/assignRole")
+	public String assignRole(Integer id,Map map){	
+		//查询出存在的所有角色
+		List<Role> allListRole = userService.querAllRole();
+		List<Integer> roleIds = userService.queryRoleByUserid(id);
+		//查询出指定用户拥有的角色
+		List<Role> leftRoleList = new ArrayList<Role>(); //未分配角色
+		List<Role> rightRoleList = new ArrayList<Role>(); //已分配角色
+		
+		for(Role role : allListRole){			
+			//roleIds中包含role的id，则为拥有该权限
+			if(roleIds.contains(role.getId())){
+				rightRoleList.add(role);
+			}else{
+				leftRoleList.add(role);
+			}
+		}
+		//用户未拥有的权限
+		map.put("leftRoleList", leftRoleList);
+		//用户拥有的权限
+		map.put("rightRoleList", rightRoleList);
+		return "user/assignrole";
+	}
+	
+	//执行角色分配操作
+	@ResponseBody
+	@RequestMapping("/doAssignRole")
+	public Msg doAssignRole(Integer[] ids,Integer userId) {
+		//先输出用户的所有角色
+		userService.updateUserRole(ids,userId);
 		return Msg.success();
-   }
+	}
 	
 }

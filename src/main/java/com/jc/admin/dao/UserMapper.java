@@ -1,5 +1,6 @@
 package com.jc.admin.dao;
 
+import com.jc.admin.bean.Role;
 import com.jc.admin.bean.User;
 import com.jc.admin.bean.UserExample;
 import java.util.List;
@@ -29,5 +30,11 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
 	User queryUserlogin(@Param("loginacct")String loginacct, @Param("userpswd")String userpswd);
+
+	List<Role> querAllRole();
+
+	List<Integer> queryRoleByUserid(Integer id);
+
+	int deleteUserRoleByUserId(Integer userId);
 
 }

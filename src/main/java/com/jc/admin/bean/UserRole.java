@@ -7,7 +7,19 @@ public class UserRole {
 
     private Integer roleid;
 
-    public Integer getId() {
+	public UserRole() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public UserRole(Integer id, Integer userid, Integer roleid) {
+		super();
+		this.id = id;
+		this.userid = userid;
+		this.roleid = roleid;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -7,10 +7,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jc.admin.bean.Role;
 import com.jc.admin.bean.User;
 import com.jc.admin.bean.UserExample;
 import com.jc.admin.bean.UserExample.Criteria;
+import com.jc.admin.bean.UserRole;
+import com.jc.admin.bean.UserRoleExample;
+import com.jc.admin.dao.RoleMapper;
 import com.jc.admin.dao.UserMapper;
+import com.jc.admin.dao.UserRoleMapper;
 import com.jc.admin.exception.LoginFailException;
 import com.jc.admin.service.UserService;
 import com.jc.utils.MD5Util;
@@ -19,7 +24,10 @@ import com.jc.utils.MD5Util;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserMapper userMapper;
-
+	
+	@Autowired
+	UserRoleMapper useRolerMapper;
+	
 	@Override
 	public User queryUserLogin(String loginacct, String userpswd) {
 		User user = userMapper.queryUserlogin(loginacct,userpswd);
@@ -83,4 +91,27 @@ public class UserServiceImpl implements UserService {
         criteria.andIdIn(list);
         userMapper.deleteByExample(example);	
 	}
+
+	@Override
+	public List<Role> querAllRole() {		
+		return userMapper.querAllRole();
+	}
+
+	@Override
+	public List<Integer> queryRoleByUserid(Integer id) {
+		return userMapper.queryRoleByUserid(id);
+	}
+
+	@Override
+	public void updateUserRole(Integer[] ids, Integer userId) {
+		
+		//先删除原有的所有与角色
+		userMapper.deleteUserRoleByUserId(userId);
+		for (Integer id : ids) {
+
+			//逐个插入角色
+			useRolerMapper.insertSelective(new UserRole(null,userId,id));
+		}
+	}
+
 }
