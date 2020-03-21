@@ -57,6 +57,7 @@
 		<table tableName="t_message" domainObjectName="Message"></table>
 		<table tableName="t_order" domainObjectName="Order"></table>
 		<table tableName="t_param" domainObjectName="Param"></table>
+		<table tableName="t_permission" domainObjectName="Permission"></table>
 		<table tableName="t_project" domainObjectName="Project"></table>
 		<table tableName="t_project_tag" domainObjectName="ProjectTag"></table>
 		<table tableName="t_project_type" domainObjectName="ProjectType"></table>

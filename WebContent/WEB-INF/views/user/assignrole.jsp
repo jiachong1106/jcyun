@@ -57,7 +57,7 @@
 				</ol>
 			<div class="panel panel-default">
 			  <div class="panel-body">
-				<form role="form" class="form-inline">
+				<form id="fuserRoleLeft" role="form" class="form-inline">
 				  <div class="form-group">
 					<label for="exampleInputPassword1">未分配角色列表</label><br>
 					<select id="leftRoleList" class="form-control" multiple size="10" style="width:250px;overflow-y:auto;">
@@ -73,8 +73,8 @@
                             <li id="rightToLeftBtn" class="btn btn-default glyphicon glyphicon-chevron-left" style="margin-top:20px;"></li>
                         </ul>
 				  </div>
-				  <div class="form-group" style="margin-left:40px;">
-					<label for="exampleInputPassword1">已分配角色列表</label><br>
+				  <div class="form-group fuserRole"  style="margin-left:40px;">
+					<label id="fuserRoleright" for="exampleInputPassword1">已分配角色列表</label><br>
 					<select id="rightRoleList" class="form-control" multiple size="10" style="width:250px;overflow-y:auto;">
                         <c:forEach items="${rightRoleList }" var="role">
 	                        <option value="${role.id }">${role.name }</option>
@@ -173,6 +173,12 @@
            		
            	});
            })
+           //此处不能使用reset():$("#fuserRoleLeft")[0].reset();
+           //reset()是重置value的值,这里标签都没了
+           // <input type="email" id="femail" value="${user.email }">
+           $("#resetBtn").click(function(){
+        	   location.reload(true);
+			});
              $("#cancleBtn").click(function(){
             	 window.location.href="${APP_PATH}/user/index.htm";
              })
